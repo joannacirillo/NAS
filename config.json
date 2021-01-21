@@ -1,0 +1,492 @@
+{
+  "routers" : [
+    {
+        "name" : "P1",
+        "interfaces" :
+          [
+             {
+              "interface":"GigabitEthernet 1/0",
+              "address" : "172.26.12.2",
+              "subnet_address": "172.26.12.0",
+              "inverted_mask" : "0.0.0.3",
+              "prefix_length": "255.255.255.252",
+              "protocols": ["ospf","mpls"],
+              "mpls_MTU" : "1560",
+              "area": "0"
+            },
+            {
+              "interface":"GigabitEthernet 2/0",
+              "address" : "172.26.13.1",
+              "subnet_address": "172.26.13.0",
+              "inverted_mask" : "0.0.0.3",
+              "prefix_length": "255.255.255.252",
+              "protocols": ["ospf","mpls"],
+              "mpls_MTU" : "1560",
+              "area": "0"
+            },
+            {
+             "interface":"FastEthernet 0/0",
+             "address" : "172.26.11.1",
+             "subnet_address": "172.26.11.0",
+             "inverted_mask" : "0.0.0.3",
+             "prefix_length": "255.255.255.252",
+             "protocols": ["ospf","mpls"],
+             "mpls_MTU" : "1560",
+             "area": "0"
+            },
+            {
+              "interface":"Loopback0",
+              "address" : "192.168.10.10",
+              "subnet_address": "192.168.10.10",
+              "inverted_mask" : "0.0.0.0",
+              "prefix_length": "255.255.255.255",
+              "protocols": "ospf",
+              "area" :"0"
+            }
+          ],
+          "protocols": ["ospf","mpls"],
+          "area" :"0",
+          "process_id": "1",
+          "router_id": "1.1.1.1",
+          "label_range" : "1000 1999"
+    },
+
+
+    {
+        "name" : "PE1-1",
+        "interfaces" :
+          [
+             {
+              "interface":"GigabitEthernet 1/0",
+              "address" : "194.10.11.1",
+              "subnet_address": "194.10.11.0",
+              "inverted_mask" : "0.0.0.3",
+              "prefix_length": "255.255.255.252",
+              "protocols": ["ospf"],
+              "mpls_MTU" : "1560",
+              "area": "0",
+              "ext":"true",
+              "vrf" : "TC"
+            },
+            {
+             "interface":"FastEthernet 0/0",
+             "address" : "172.26.11.2",
+             "subnet_address": "172.26.11.0",
+             "inverted_mask" : "0.0.0.3",
+             "prefix_length": "255.255.255.252",
+             "protocols": ["ospf","mpls"],
+             "mpls_MTU" : "1560",
+             "area": "0",
+             "vrf" : ""
+           },
+           {
+            "interface":"GigabitEthernet 2/0",
+            "address" : "194.20.11.1",
+            "subnet_address": "194.20.11.0",
+            "inverted_mask" : "0.0.0.3",
+            "prefix_length": "255.255.255.252",
+            "protocols": ["ospf"],
+            "mpls_MTU" : "1560",
+            "area": "0",
+            "ext":"true",
+            "vrf" : "IT"
+          },
+          {
+            "interface":"Loopback0",
+            "address" : "192.168.10.11",
+            "subnet_address": "192.168.10.11",
+            "inverted_mask" : "0.0.0.0",
+            "prefix_length": "255.255.255.255",
+            "protocols": "ospf",
+            "area" :"0",
+            "vrf" : ""
+          }
+          ],
+        "loopback" : "192.168.10.11",
+        "protocols": ["ospf","mpls"],
+        "area" :"0",
+        "process_id": "1",
+        "router_id": "2.2.2.2",
+        "label_range" : "100 199",
+        "as_bgp" : "25253",
+        "vrf" : [
+          {
+            "vrf_name" : "TC",
+            "rd" : "100",
+            "import" : ["100","300"],
+            "export" : ["100","1234"]          
+          },
+          {
+            "vrf_name" : "IT",
+            "rd":"200",
+            "import" : ["200","300"],
+            "export" : ["200","1234"]
+          }
+        ],
+      "neighbors" : ["192.168.10.12","192.168.10.13"]
+    },
+
+
+
+
+    {
+        "name" : "PE1-2",
+        "interfaces" :
+          [
+             {
+              "interface":"FastEthernet 0/0",
+              "address" : "172.26.12.1",
+              "subnet_address": "172.26.12.0",
+              "inverted_mask" : "0.0.0.3",
+              "prefix_length": "255.255.255.252",
+              "protocols": ["ospf","mpls"],
+              "mpls_MTU" : "1560",
+              "area": "0",
+              "vrf" : ""
+            },
+            {
+             "interface":"GigabitEthernet 1/0",
+             "address" : "194.10.12.1",
+             "subnet_address": "194.10.12.0",
+             "inverted_mask" : "0.0.0.3",
+             "prefix_length": "255.255.255.252",
+             "protocols": ["ospf"],
+             "mpls_MTU" : "1560",
+             "area": "0",
+             "ext":"true",
+             "vrf" : "TC"
+           },
+           {
+            "interface":"GigabitEthernet 2/0",
+            "address" : "194.20.12.1",
+            "subnet_address": "194.20.12.0",
+            "inverted_mask" : "0.0.0.3",
+            "prefix_length": "255.255.255.252",
+            "protocols": ["ospf"],
+            "mpls_MTU" : "1560",
+            "area": "0",
+            "ext":"true",
+            "vrf" : "IT"
+          },
+          {
+            "interface":"Loopback0",
+            "address" : "192.168.10.12",
+            "subnet_address": "192.168.10.12",
+            "inverted_mask" : "0.0.0.0",
+            "prefix_length": "255.255.255.255",
+            "protocols": "ospf",
+            "area" :"0",
+            "vrf" : ""
+          }
+          ],
+        "loopback" : "192.168.10.12",
+        "protocols": ["ospf","mpls"],
+        "area" :"0",
+        "process_id": "1",
+        "router_id": "3.3.3.3",
+        "label_range" : "200 299",
+        "as_bgp" : "25253",
+        "vrf" : [
+          {
+            "vrf_name" : "TC",
+            "rd" : "100",
+            "import" : ["100","300"],
+            "export" : ["100","1234"]          
+          },
+          {
+            "vrf_name" : "IT",
+            "rd":"200",
+            "import" : ["200","300"],
+            "export" : ["200","1234"]
+          }
+        ],
+      "neighbors" : ["192.168.10.11","192.168.10.13"]
+    },
+
+
+
+    {
+        "name" : "TC_CE11",
+        "interfaces" :
+          [
+             {
+              "interface":"FastEthernet 0/0",
+              "address" : "194.10.11.2",
+              "subnet_address": "194.10.11.0",
+              "inverted_mask" : "0.0.0.3",
+              "prefix_length": "255.255.255.252",
+              "protocols": "ospf",
+              "area": "0"
+            },
+            {
+             "interface":"GigabitEthernet 1/0",
+             "address" : "10.11.0.254",
+             "subnet_address": "10.11.0.0",
+             "inverted_mask" : "0.0.0.255",
+             "prefix_length": "255.255.255.0",
+             "protocols": "ospf",
+             "area": "0"
+           }
+          ],
+        "protocols": "ospf",
+        "area" :"0",
+        "process_id": "1",
+        "router_id": "111.111.111.111"
+    },
+
+    {
+      "name" : "IT_CE11",
+      "interfaces" :
+        [
+           {
+            "interface":"FastEthernet 0/0",
+            "address" : "194.20.11.2",
+            "subnet_address": "194.20.11.0",
+            "inverted_mask" : "0.0.0.3",
+            "prefix_length": "255.255.255.252",
+            "protocols": "ospf",
+            "area": "0"
+          },
+          {
+           "interface":"GigabitEthernet 1/0",
+           "address" : "20.11.0.254",
+           "subnet_address": "20.11.0.0",
+           "inverted_mask" : "0.0.0.255",
+           "prefix_length": "255.255.255.0",
+           "protocols": "ospf",
+           "area": "0"
+         }
+        ],
+      "protocols": "ospf",
+      "area" :"0",
+      "process_id": "1",
+      "router_id": "211.211.211.211"
+  },
+
+
+
+
+  {
+    "name" : "TC_CE12",
+    "interfaces" :
+      [
+         {
+          "interface":"FastEthernet 0/0",
+          "address" : "194.10.12.2",
+          "subnet_address": "194.10.12.0",
+          "inverted_mask" : "0.0.0.3",
+          "prefix_length": "255.255.255.252",
+          "protocols": "ospf",
+          "area": "0"
+        },
+        {
+         "interface":"GigabitEthernet 1/0",
+         "address" : "10.12.0.254",
+         "subnet_address": "10.12.0.0",
+         "inverted_mask" : "0.0.0.255",
+         "prefix_length": "255.255.255.0",
+         "protocols": "ospf",
+         "area": "0"
+       }
+      ],
+    "protocols": "ospf",
+    "area" :"0",
+    "process_id": "1",
+    "router_id": "112.112.112.112"
+  },
+  {
+    "name" : "IT_CE12",
+    "interfaces" :
+      [
+        {
+          "interface":"FastEthernet 0/0",
+          "address" : "194.20.12.2",
+          "subnet_address": "194.20.12.0",
+          "inverted_mask" : "0.0.0.3",
+          "prefix_length": "255.255.255.252",
+          "protocols": "ospf",
+          "area": "0"
+        },
+        {
+        "interface":"GigabitEthernet 1/0",
+        "address" : "20.12.0.254",
+        "subnet_address": "20.12.0.0",
+        "inverted_mask" : "0.0.0.255",
+        "prefix_length": "255.255.255.0",
+        "protocols": "ospf",
+        "area": "0"
+      }
+      ],
+    "protocols": "ospf",
+    "area" :"0",
+    "process_id": "1",
+    "router_id": "212.212.212.212"
+  },
+
+  {
+    "name" : "PE1-3",
+    "interfaces" :
+      [
+         {
+          "interface":"GigabitEthernet 1/0",
+          "address" : "194.10.13.1",
+          "subnet_address": "194.10.13.0",
+          "inverted_mask" : "0.0.0.3",
+          "prefix_length": "255.255.255.252",
+          "protocols": ["ospf"],
+          "mpls_MTU" : "1560",
+          "area": "0",
+          "ext":"true",
+          "vrf" : "TC"
+        },
+        {
+         "interface":"FastEthernet 0/0",
+         "address" : "194.30.13.1",
+         "subnet_address": "194.30.13.0",
+         "inverted_mask" : "0.0.0.3",
+         "prefix_length": "255.255.255.252",
+         "protocols": ["ospf"],
+         "mpls_MTU" : "1560",
+         "area": "0",
+         "ext":"true",
+         "vrf" : "Shared"
+       },
+       {
+        "interface":"GigabitEthernet 2/0",
+        "address" : "172.26.13.2",
+        "subnet_address": "172.26.13.0",
+        "inverted_mask" : "0.0.0.3",
+        "prefix_length": "255.255.255.252",
+        "protocols": ["ospf","mpls"],
+        "mpls_MTU" : "1560",
+        "area": "0",
+        "vrf" : ""
+      },
+      {
+        "interface":"Loopback0",
+        "address" : "192.168.10.13",
+        "subnet_address": "192.168.10.13",
+        "inverted_mask" : "0.0.0.0",
+        "prefix_length": "255.255.255.255",
+        "protocols": "ospf",
+        "area" :"0",
+        "vrf" : ""
+      }
+      ],
+    "loopback" : "192.168.10.13",
+    "protocols": ["ospf","mpls"],
+    "area" :"0",
+    "process_id": "1",
+    "router_id": "4.4.4.4",
+    "label_range" : "300 399",
+    "as_bgp" : "25253",
+    "vrf" : [
+      {
+        "vrf_name" : "TC",
+        "rd" : "100",
+        "import" : ["100","300"],
+        "export" : ["100","1234"]
+      },
+      {
+        "vrf_name" : "Shared",
+        "rd" : "300",
+        "import" : ["1234"],
+        "export" : ["300"]
+      }
+    ],
+    "neighbors" : ["192.168.10.12","192.168.10.11"]
+  },
+
+
+
+  {
+    "name" : "TC_CE13",
+    "interfaces" :
+      [
+         {
+          "interface":"GigabitEthernet 1/0",
+          "address" : "194.10.13.2",
+          "subnet_address": "194.10.13.0",
+          "inverted_mask" : "0.0.0.3",
+          "prefix_length": "255.255.255.252",
+          "protocols": "ospf",
+          "area": "0"
+        },
+        {
+          "interface":"GigabitEthernet 2/0",
+          "address" : "10.13.0.254",
+          "subnet_address": "10.13.0.0",
+          "inverted_mask" : "0.0.0.255",
+          "prefix_length": "255.255.255.0",
+          "protocols": "ospf",
+          "area": "0"
+        }
+      ],
+    "protocols": "ospf",
+    "area" :"0",
+    "process_id": "1",
+    "router_id": "113.113.113.113"
+  },
+  {
+    "name" : "CE13",
+    "interfaces" :
+      [
+        {
+          "interface":"GigabitEthernet 1/0",
+          "address" : "194.30.13.2",
+          "subnet_address": "194.30.13.0",
+          "inverted_mask" : "0.0.0.3",
+          "prefix_length": "255.255.255.252",
+          "protocols": "ospf",
+          "area": "0"
+        },
+        {
+          "interface":"GigabitEthernet 2/0",
+          "address" : "30.13.0.254",
+          "subnet_address": "30.13.0.0",
+          "inverted_mask" : "0.0.0.255",
+          "prefix_length": "255.255.255.0",
+          "protocols": "ospf",
+          "area": "0"
+        }
+      ],
+    "protocols": "ospf",
+    "area" :"0",
+    "process_id": "1",
+    "router_id": "33.33.33.33"
+  }
+],
+  "QoS" : {
+    "classes" : [
+      {
+        "name" : "TCP",
+        "access-list" : "101",
+        "dscp" : "AF11"
+      },
+      {
+        "name" : "UDP",
+        "access-list" : "102",
+        "dscp" : "AF41"
+      }
+    ],
+    "policies" : [
+      { "policy_map" : "IN"
+      },
+      { "policy_map" : "MARKED",
+        "classes" : [
+          {
+            "TCP" : {
+              "bandwidth" : "40"
+              }
+            },
+          {
+            "UDP" : {
+            "bandwidth" : "30"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+
